@@ -30,7 +30,57 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+def vigenere_cipher(text, key, decrypt=False):
+    """
+    Encrypts or decrypts a message using the Vigenère cipher.
+    
+    Args:
+        text (str): The message to be encrypted or decrypted.
+        key (str): The key for the cipher.
+        decrypt (bool): If True, performs decryption. Otherwise, encrypts.
+        
+    Returns:
+        str: The encrypted or decrypted message.
+    """
+    text = text.upper()
+    key = key.upper()
+    
+    result = ""
+    key_index = 0
+    
+    for char in text:
+        if 'A' <= char <= 'Z':
+            shift = ord(key[key_index % len(key)]) - ord('A')
+            
+            if decrypt:
+                new_char_code = ord('A') + (ord(char) - ord('A') - shift + 26) % 26
+            else:
+                new_char_code = ord('A') + (ord(char) - ord('A') + shift) % 26
+                
+            result += chr(new_char_code)
+            key_index += 1
+        else:
+            result += char  # Handle non-alphabetic characters
+            
+    return result
+
+# --- Main Program ---
+if __name__ == "__main__":
+    text = "JANANI"
+    key = "KEY"
+    
+    encrypted_message = vigenere_cipher(text, key)
+    print(f"Encrypted Message: {encrypted_message}")
+    
+    decrypted_message = vigenere_cipher(encrypted_message, key, decrypt=True)
+    print(f"Decrypted Message: {decrypted_message}")
+```
+
 
 ## OUTPUT
+<img width="1611" height="763" alt="Screenshot 2025-09-02 114159" src="https://github.com/user-attachments/assets/75276bbc-88ec-4f4b-935b-237e2b8ca21d" />
+
 
 ## RESULT
+Hence,successfully verified
